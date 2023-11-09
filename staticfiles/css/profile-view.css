@@ -1,0 +1,104 @@
+/* user-information-container profile-container profile-company-info-container profile-task-info-container  */
+/* user-profile-view, company-profile-view */
+
+.profile-information-container{
+  width: 100%;
+  height: 100%;
+  /* background-color: blueviolet; */
+  overflow-y: scroll;
+}
+
+
+/* profile container start */
+
+.profile-container{
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  background-color: var(--container-bg);
+  /* border: 1px solid black; */
+  border-radius: 0.8rem;
+  margin-right: 0.2rem;
+  box-shadow: 0px 3px 10px 0px rgba(0, 0, 0, 0.15);
+}
+
+.profile-container-img-div{
+  /* background-color: red; */
+  padding: 1rem;
+  width: 30%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.profile-container-img-div img{
+  width: 100%;
+  height: 100%;
+  /* aspect-ratio: ; */
+
+}
+
+.profile-container-information-div{
+  /* background-color: #51696B; */
+  width: 70%;
+  padding: 1rem;
+}
+.profile-info-div-para-container{
+  /* display: flex; */
+  /* flex-direction: row; */
+  /* justify-content: flex-start; */
+  /* align-items: center; */
+  gap: 0.5rem;
+}
+.profile-info-div-para-container a{
+  color:var(--text-color);
+}
+.profile-info-div-title{
+  font-size: 1.2em;
+  color: var(--text-color);
+  font-weight: 500;
+  /* border-bottom: 0.1px solid var(--border-color); */
+}
+.profile-info-div-info{
+  font-size: 1.4em;
+  color: var(--text-color);
+  font-weight: 500;
+}
+.bio-align-top{
+  align-self: flex-start;
+}
+/* profile container end */
+
+
+/* company table container start*/
+.companay-table-container{
+  /* background-color: red; */
+  background-color: var(--container-bg);
+  border-radius: 0.8rem;
+  box-shadow: 0px 3px 10px 0px rgba(0, 0, 0, 0.15);
+  height: 30rem;
+  /* max-height: 40rem ; */
+  margin-top: 1.8rem;
+  padding: 1rem;
+  overflow:hidden;
+}
+.company-table-container-title{
+  font-size: 1.5em;
+  font-weight: 500;
+  padding: 0.5rem;
+}
+
+.table-name{
+  text-decoration: none;
+  color: var(--text-color);
+}
+.table-name:hover{
+  text-decoration: underline;
+}
+
+.company-members-in-table{ /* this have stay below company members class*/
+  justify-content: flex-start;
+}
+
+
+/* company table container end*/

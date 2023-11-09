@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+{% load static %}
+<!-- Coding by CodingLab | www.codinglabweb.com  -->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trello Task Manager</title>
+
+    <!-- Link Swiper's CSS -->
+    <link rel="stylesheet" href="{% static 'css/swiper-bundle.min.css' %}" />
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+  </head>
+  <body>
+    <section class="main swiper mySwiper">
+      <div class="wrapper swiper-wrapper">
+        <div class="slide swiper-slide">
+          <img src="{% static 'images/img1.png' %}" alt="" class="image" />
+
+          <div class="image-data">
+            <h2>
+              Trello,Your Task Manager <br />
+              Manage Task More Smoothly and Efficiently
+            </h2>
+
+            <!-- <a href="#" class="button">About Us</a> -->
+            {% if request.user.is_authenticated %}
+              <a href="{% url 'task:user-workspace' %}" class="button">Workspace</a>
+              <a href="{% url 'account:user-profile' pk=request.user.id %}" class="button">Go To Profile</a>
+            {% else %}
+              <a href="{% url 'account:signup' %}" class="button">Get Started</a>
+              <a href="{% url 'account:login' %}" class="button">Login Now</a>
+            {% endif %}
+          </div>
+
+        </div>
+        <div class="slide swiper-slide">
+          <img src="{% static 'images/img2.png' %}" alt="" class="image" />
+          <div class="image-data">
+            <span class="text">We really like what we do.</span>
+            <h2>
+              Detail Table's Of Your Task<br />
+              To keep You Up To Date About Your Tasks
+            </h2>
+            <!-- <a href="#" class="button">About Us</a> -->
+            {% if request.user.is_authenticated %}
+              <a href="{% url 'task:user-workspace' %}" class="button">Workspace</a>
+              <a href="{% url 'account:user-profile' pk=request.user.id %}" class="button">Go To Profile</a>
+            {% else %}
+              <a href="{% url 'account:signup' %}" class="button">Get Started</a>
+              <a href="{% url 'account:login' %}" class="button">Login Now</a>
+            {% endif %}
+          </div>
+        </div>
+        <div class="slide swiper-slide">
+          <img src="{% static 'images/img3.png' %}" alt="" class="image" />
+          <div class="image-data">
+            <span class="text">Making Our coffee with lover.</span>
+            <h2>
+              Detail Profile Pages <br />
+              To Show Your Activity
+            </h2>
+            <!-- <a href="#" class="button">About Us</a> -->
+            {% if request.user.is_authenticated %}
+              <a href="{% url 'task:user-workspace' %}" class="button">Workspace</a>
+              <a href="{% url 'account:user-profile' pk=request.user.id %}" class="button">Go To Profile</a>
+            {% else %}
+              <a href="{% url 'account:signup' %}" class="button">Get Started</a>
+              <a href="{% url 'account:login' %}" class="button">Login Now</a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+
+      <div class="swiper-button-next nav-btn"></div>
+      <div class="swiper-button-prev nav-btn"></div>
+      <div class="swiper-pagination"></div>
+    </section>
+
+    <!-- Swiper JS -->
+    <script src="{% static 'JS/swiper-bundle.min.js' %}"></script>
+
+    <!-- Initialize Swiper -->
+    <script>
+      var swiper = new Swiper(".mySwiper", {
+        slidesPerView: 1,
+        loop: true,
+        pagination: {
+          el: ".swiper-pagination",
+          clickable: true,
+        },
+        navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
+        },
+      });
+    </script>
+  </body>
+</html>

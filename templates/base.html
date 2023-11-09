@@ -1,0 +1,58 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- ==== ==== -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kenia&family=Mukta:wght@300;700&display=swap" rel="stylesheet">
+
+
+    <!-- Boxicons CSS -->
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+    {% block title %}
+
+    {% endblock title %}
+    <link rel="stylesheet" href="{% static 'css/main.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/navigations.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/modal.css' %}"/>
+    {% block statics %}
+
+    {% endblock statics %}
+  </head>
+  <body>
+
+    <!-- Messages start -->
+    {% if messages %}
+      {% for message in messages %}
+        <div class="message-modal modal-{{message.tags}}" id="message-modal">
+          <div class="message-modal-content">
+            <div class="message-modal-message-text">
+              <P>
+                {{message}}
+              </P>
+            </div>
+            <div class="message-modal-close-btn">
+              <i class="fa-solid fa-xmark"></i>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    {% endif %}
+    <!-- Messages end -->
+
+    {% include 'navigations.html' %}
+
+    {% block content %}
+
+    {% endblock content %}
+
+    <script src="{% static 'js/navigations.js' %}"></script>
+    <script src="{% static 'js/modal.js' %}"></script>
+
+  </body>
+</html>
+

@@ -1,0 +1,899 @@
+/* Import Google font - Poppins */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+:root {
+  --primary-color: #ffffff;
+  --secondary-color:  #e5d9e7; /* using for menu hover*/
+  --text-color:#111111;
+  --text-color-light:#202727;
+
+  /* --background-color:  #f4e7f6; */
+  --background-color:  #c1cdc0;
+  --container-bg: #ffffff;
+  --border-color: #51696B;
+
+  --sidebar-width: 26rem;
+  --navbar-height: 80px; /* not measured, check before use */
+  --margin-top-for-main: calc(var(--navbar-height) + 0.2rem);
+  --margin-left-for-main: calc(var(--sidebar-width) + 0.2rem);
+  --main-section-width: 80.75%; /* ** increase may cause layout issue*/
+}
+body {
+  background-color: var(--background-color);
+  transition: all 0.5s ease;
+
+  /*margin: 2rem 0rem 0rem 2rem;  remove before main save*/
+}
+
+html{
+  font-size: 62.5%; /*in this case 1rem=10px, 1em=10px */
+}
+
+/* -component
+-table
+-workspace
+-task-modal */
+
+
+/* message modal start */
+.message-modal{
+  width: 32rem;
+  height: 16rem;
+  /* background-color: #111111; */
+  background-color: var(--container-bg);
+  /* box-shadow: 0px 3px 10px 0px rgba(0, 0, 0, 0.15); */
+  box-shadow: 0px 3px 10px 0px var(--border-color);
+  border-radius: 0.8rem;
+  padding: 1rem;
+  z-index: 9999;
+  position: absolute;
+  bottom: 5rem;
+  left: 3.5rem;
+  overflow: hidden;
+}
+
+.message-modal-hide{
+  display: none;
+}
+
+.message-modal-content{
+  width: 100%;
+  height: 100%;
+  /* background-color:red; */
+  border-radius: 0.8rem;
+  display: flex;
+  padding: 0.5rem;
+  position: relative;
+}
+
+
+.modal-normal{
+  border: 1px solid var(--container-bg);
+}
+.modal-success{
+  border: 1px solid var(--border-color);
+}
+.modal-warning{
+  border: 1px solid red;
+}
+
+.message-modal-close-btn{
+  /* background-color: #111111; */
+  color: white;
+  padding: 0.5rem;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.message-modal-close-btn i{
+  color: var(--text-color);
+  font-size: 1.5em;
+}
+.message-modal-close-btn i:hover{
+  font-size: 1.8em;
+}
+
+.message-modal-message-text{
+  /* background-color: #51696B; */
+  color: white;
+}
+
+.message-modal-message-text p{
+  color: var(--text-color);
+  font-size: 1.4em;
+}
+/* message modal end */
+
+/* for delete page */
+.delete_page_header_text{
+  font-size: 1.6em;
+  color:var(--text-color);
+  background-color: var(--container-bg);
+}
+.delete_page_header_text a{
+  font-size: 1.2em;
+  font-weight: 500;
+  color: var(--text-color);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* component */
+.task-filter-div{
+  background-color: var(--container-bg);
+  display: inline;
+  padding: 0.2rem 1rem 0.2rem 1rem;
+  color: var(--text-color);
+  font-size: 1.5em;
+  font-weight: 500;
+  border: 1px solid var(--border-color);
+  border-radius: 1rem;
+  box-shadow: 0px 3px 10px 0px rgba(0, 0, 0, 0.15);
+  text-align: center;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  cursor: pointer;
+}
+
+.task-filter-div a{
+  text-decoration: none;
+  color:var(--text-color);
+}
+
+.task-filter-div-active{
+  background-color: var(--secondary-color);
+}
+
+.task-filter-div:hover{
+  background-color: var(--secondary-color);
+}
+
+/* container for company list elements starts*/
+.workspace-table-section-list-cards-container{
+  width: 100%;
+  height: 90%;
+  color: var(--text-color);
+  padding: 0;
+  /* margin-bottom: 5rem; */
+  /* background-color: plum; */
+  border-bottom-right-radius: 1rem;
+  border-bottom-left-radius: 1rem;
+  /* overflow-y: scroll; */
+
+}
+.list-card-small{
+  background-color: var(--container-bg);
+  cursor: pointer;
+  max-width: 5%;
+  min-width: 25rem;
+  margin:0.5rem;
+  display: flex;
+  /* border: 1px solid var(--text-color); */
+  border-radius: 0.8rem;
+  box-shadow: 0px 3px 10px 0px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+}
+.additional-margin-for-small-para{
+  margin:1rem;
+}
+
+.list-card-stats-div-modified{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap:0.2rem;
+  margin-left: 0.2rem ;
+}
+.list-card-stats-div-modified p{
+  font-size: 1.3em;
+  font-weight: 500;
+  color: var(--text-color);
+  /* white-space: nowrap; */
+  text-overflow: ellipsis;
+
+}
+/* container for company list elements ends*/
+
+/* container for list cards*/
+.list-card-container{
+  width: 100%;
+  height: 100%;
+  /* background-color: blueviolet; */
+  overflow-y: scroll;
+}
+
+/* list card */
+.list-card-wrapper-anchor{
+  text-decoration: none;
+  color:var(--text-color);
+}
+
+.list-card{
+  background-color: var(--container-bg);
+  cursor: pointer;
+  max-width: 98%;
+  min-width: 25rem;
+  margin:0.5rem;
+  display: flex;
+  /* border: 1px solid var(--text-color); */
+  border-radius: 0.8rem;
+  box-shadow: 0px 3px 10px 0px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+}
+
+.list-card-main-div{
+  /* background-color: red; */
+  padding: 0.2rem;
+  text-align: start;
+  width: 92%;
+  cursor: pointer;
+}
+
+.list-card-info-logo-div{
+  /* background-color: yellow; */
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  cursor: pointer;
+  overflow: hidden;
+
+}
+.list-card-info-logo-div a{
+  text-decoration: none;
+  color: var(--text-color);
+  font-size: 1.2em;
+  font-weight: 500;
+
+}
+.list-card-info-logo-div p{
+  font-size: 1.5em;
+  font-weight: 500;
+}
+.list-card-info-logo-div a:hover{
+  text-decoration: underline;
+}
+.list-card-info-name-div{
+  /* background-color: yellowgreen; */
+  text-align: start;
+  margin-left: 0.2rem;
+  font-size: 1.5em;
+  /* white-space: nowrap; */
+  /* text-overflow: ellipsis; */
+  overflow: hidden;
+}
+
+
+.list-card-stats-div{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap:0.2rem;
+  margin-left: 0.2rem ;
+}
+
+.list-card-stats-div p{
+  font-size: 1em;
+  color: var(--text-color);
+  /* white-space: nowrap; */
+  text-overflow: ellipsis;
+
+}
+
+.task-assignee{
+  width: 2.2rem;
+  height: 2.2rem;
+  border-radius: 50%;
+}
+
+/* to change color based on list-card-type*/
+.ongoing-task{ /*ongoing task*/
+ background-color: blueviolet;
+ color: white;
+}
+.finished-task{ /*finished task*/
+ background-color: lightblue;
+ color:var(--text-color)
+}
+.deadline-closing{ /*deadine closing task*/
+ background-color: red;
+}
+.unstarted-task{ /* unstarted-task*/
+  background-color: grey;
+  color: white;
+}
+.unassigned-task{ /* unassigned task*/
+  background-color: gray;
+}
+
+.test-background{
+  background-color: yellow;
+}
+
+.showing-icon{
+  background-color: var(--secondary-color);
+  /* background-color:blue; */
+  /* color: white; */
+
+}
+
+.list-card-side-div{
+  width: 8%;
+  padding: 0.2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.list-card-side-div a{
+  text-decoration: none;
+  color: var(--text-color);
+}
+.list-card-side-div i {
+  font-size: 1.6em;
+
+}
+/* end of component*/
+
+
+/* main */
+main{
+  width: var(--main-section-width);
+  height: calc(100vh - var(--margin-top-for-main));
+  /* background-color: black; */
+  margin-left: var(--margin-left-for-main);
+  margin-top: var(--margin-top-for-main);
+  padding: 1rem;
+  overflow: hidden;
+}
+
+.workspace-navbar{
+  width: 100%;
+  height: 10%;
+  padding: 1rem;
+  /* background-color: rebeccapurple; */
+  background-color: var(--container-bg);
+  border-top-right-radius: 1rem;
+  border-top-left-radius: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1rem;
+}
+
+/* .workspace-navbar:last-child{
+  margin-left: auto;
+} */
+
+.workspace-table-section{
+  width: 100%;
+  height: 90%;
+  color: var(--text-color);
+  padding: 0;
+  /* margin-bottom: 5rem; */
+  /* background-color: plum; */
+  border-bottom-right-radius: 1rem;
+  border-bottom-left-radius: 1rem;
+  /* overflow-y: scroll; */
+
+}
+
+
+/* ==== table css start ====*/
+table {
+  border-collapse: collapse;
+  table-layout: fixed;
+  width: 100%;
+  /* height: 100%; */
+  /* background: white; */
+  background: var(--container-bg);
+  border-bottom-right-radius: 1rem;
+  border-bottom-left-radius: 1rem;
+}
+
+th, td {
+  border: 1px solid lightgray;
+  padding: 1rem;
+  font-size: 1.58em;
+  text-align: left;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+td a {
+  text-decoration: none;
+  color: var(--text-color);
+  cursor: pointer;
+}
+td a:hover{
+  text-decoration: underline;
+}
+
+/* th:first-child, td:first-child {
+  width: 9rem;
+} */
+
+/* th:last-child, td:last-child {
+  text-align: right;
+  width: 6rem;
+} */
+
+th {
+  /* background: teal; */
+  background: var(--secondary-color);
+  /* color: white; */
+  color:var(--text-color);
+  text-transform: uppercase;
+  /* font-weight: normal; */
+  font-weight: 420;
+}
+
+table tr:first-child td {
+  border-top: none;
+}
+
+/* .container {
+  background: var(--container-bg);
+  width: 100%;
+  padding: 24px;
+  height: 300px;
+} */
+
+.tWrap {
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  /* background-color: red; */
+}
+
+.tWrap__head {
+  flex: 0 0 3.7rem;  /*for Safari and IE*/
+  overflow-y: scroll;
+}
+
+.tWrap__body {
+  /* flex: 0 0 56rem; */
+  overflow-y: scroll;
+}
+
+/* ==== table css end ====*/
+
+/* company workspace navbar start*/
+.workspace-navbar-div{
+  /* background-color: red; */
+  padding: 0.5rem;
+}
+.company-info-anchor{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* background-color: blue; */
+  padding:0.5rem;
+  text-decoration: none;
+  color: var(--text-color);
+}
+
+.company-info-anchor-logo{ /*it has to stay below company_logo styles*/
+  width: 4rem;
+  height: 4rem;
+}
+
+.company-info-anchor span{
+  color: var(--text-color);
+  font-size: 1.4em;
+  font-weight: 500;
+}
+
+.company-members{
+  display: flex;
+  /* background-color: red; */
+  justify-content: center;
+  align-items: center;
+}
+
+.company-members a{
+  text-decoration: none;
+}
+
+.company-members a:nth-child(1){
+  margin-left: 0rem;
+}
+.company-members a:nth-child(2){
+  margin-left: -2.5rem;
+}
+.company-members a:nth-child(3){
+  margin-left: -2rem;
+}
+.company-members a:nth-child(4){
+  margin-left: -.5rem;
+}
+.add-user-anchor i{
+  font-size: 2.5em;
+  color: var(--text-color);
+  /* margin-left: -1.8rem; */
+  /* margin-top: 5rem; */
+}
+
+.workspace-navbar-div input{
+  /* background-color: #111111; */
+  font-size: 1em;
+  padding: 0.5rem 0 0.5rem 0.8rem;
+}
+
+.workspace-navbar-div form{
+  margin-left: 2rem;
+}
+
+.send-right-end{
+  margin-left: auto;
+}
+
+.workspace-navbar-settings-div{ /*divContainingSetting=margin-left:auto; keepItAsLastChild,*/
+  /* background-color: red; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-right: 1.8rem;
+}
+.workspace-navbar-settings-element{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.workspace-navbar-settings-element a{
+  text-decoration: none;
+}
+
+.workspace-navbar-settings-element i{
+  font-size: 1.65em;
+  color: var(--text-color);
+}
+
+.workspace-navbar-settings-element p{
+  color: var(--text-color);
+  font-size: 1.4em;
+  font-weight: 450;
+}
+/* company workspace navbar end*/
+
+
+/* company table section task display start */
+
+.workspace-table-section-task-container{
+  /* background-color: red; */
+  /* padding: 1rem; */
+  width: 100%;
+  height: 100%;
+  display: flex;
+  /* justify-content: center; */
+  /* align-items: center; */
+  position: relative;
+}
+.table-section-task-div-title{
+  font-size: 1.3em;
+  font-weight: 500;
+  /* background-color: red; */
+  box-shadow: 0 0 1px var(--border-color);
+  text-align: center;
+  padding: 0.5rem;
+  width: 100%;
+  position: absolute;
+  top:0;
+  left:0;
+  display: flex;
+}
+.table-section-task-div-title p{
+  flex: 1;
+}
+
+.workspace-table-section-task-div{
+  background-color: var(--secondary-color);
+  flex: 1;
+  /* margin: 0rem 1rem 1rem 1rem; */
+  /* border: 1px solid var(--border-color); */
+  /* position: relative; */
+  /* overflow:hidden; */
+  overflow-y: scroll;
+}
+
+
+.table-section-task-div-task{
+  margin-top: 3.2rem;
+  padding:0.2rem;
+  display: flex;
+  /* border: 1px solid var(--text-color); */
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  /* overflow-y: scroll; */
+}
+/* .table-section-task-div-task::-webkit-scrollbar{
+  width: 0;
+} */
+
+/* company table section task display end */
+
+
+
+/* task modal starts */
+.task-modal{
+  width: 50%;
+  height: 75%;
+  background-color: var(--container-bg);
+  border-radius: 0.8rem;
+  z-index: 9999;
+  position: absolute;
+  top:50%;
+  left:50%;
+  transform: translate(-50%, -50%);
+  overflow: hidden;
+}
+
+.hide-task-modal{
+  display: none;
+}
+
+.task-modal-navbar{
+  width: 100%;
+  height: 3.8rem; /* task modal navbar height, fixed*/
+  position: absolute;
+  top: 0rem;
+  left: 0rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.4rem 0.8rem;
+  border-top-right-radius: 0.8rem;
+  border-top-left-radius: 0.8rem;
+}
+.task-modal-navbar p{
+  font-size: 1.8em;
+  cursor: pointer;
+}
+.task-modal-navbar button{
+  border: none;
+  outline: none;
+  background: transparent;
+}
+.task-modal-navbar button > i{
+  font-size: 1.6em;
+  cursor: pointer;
+  /* color: white; */
+}
+.task-modal-navbar i:hover{
+  font-size: 2em;
+}
+
+.ongoing-task-for-button{
+  color: white;
+}
+.unstarted-task-for-button{
+  color: white;
+}
+.unassigned-task-for-button{
+  color: white;
+}
+.finished-task-for-button{
+  color: var(--text-color);
+}
+.deadline-closing-for-button{
+  color:white;
+}
+
+.task-modal-main{
+  width: 100%;
+  height: 100%;
+  margin-top: 3.8rem;
+  /* background-color: yellow; */
+  /* padding: 1rem; */
+  border-bottom-right-radius: 0.8rem;
+  border-bottom-left-radius: 0.8rem;
+  display: flex;
+}
+
+.task-modal-main-section{
+  width: 70%;
+  height: 100%;
+  /* background-color: purple; */
+  background-color: var(--container-bg);
+  padding: 1rem;
+  color: var(--text-color);
+  font-weight: 450;
+  border-bottom-left-radius: 0.8rem;
+  overflow-y: scroll ;
+}
+.task-modal-main-section details {
+  font-size: 1.3em;
+  color: var(--text-color);
+  margin-top: 0.8rem;
+}
+.task-modal-main-section details > summary {
+  font-size: 1.3em;
+}
+
+.priority {
+  margin-top: 1rem;
+}
+
+.priority p{
+  font-size: 1.3em;
+  color: var(--text-color);
+}
+.priority span{
+  font-size: 1.3em;
+  font-weight: 500;
+  color:var(--text-color)
+}
+
+.checklist{
+  margin-top: 1rem;
+}
+
+.checklist p{
+  font-size: 1.3em;
+}
+.checklist i{
+  font-size: 1.3em;
+}
+
+.checklist-list{
+  display: flex;
+  gap: 0.5rem;
+}
+.checklist-list i{
+  font-size: 1.5em;
+  margin-top: 0.4rem;
+}
+.checklist-list-count{
+  font-size: 1.6em;
+  font-weight: 500;
+}
+
+
+.task-modal-main-sidebar{
+  width:30%;
+  height: 100%;
+  /* background-color: blue; */
+  border-bottom-right-radius: 0.8rem;
+  border-left: 1px solid var(--border-color);
+  position: relative;
+  overflow-y: scroll;
+}
+
+.task-modal-company-logo-div{
+  /* background-color: #111111; */
+  padding: 0.1rem;
+  border-radius: 0.4rem;
+}
+.task-modal-company-logo-div:hover{
+  background-color: var(--secondary-color);
+}
+
+.task-modal-company-logo-div a{
+  text-decoration: none;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap:0.1rem;
+}
+/* .task-modal-company-logo-div a:hover{
+  text-decoration: underline;
+} */
+
+.task-modal-company-logo-div p{
+  /* color: white; */
+  color: var(--text-color);
+  font-size: 1.4em;
+  font-weight: 500;
+}
+
+.task-modal-task-stats-div{
+  padding: 0.4rem;
+  /* border: 1px solid black; */
+  text-align: left;
+}
+.task-modal-task-stats-div p{
+  color: var(--text-color);
+}
+
+.task-stats-div-title{
+  font-size: 1.2em;
+  color: white;
+}
+.task-stats-div-info{
+  font-size: 1.4em;
+  font-weight: 500;
+}
+
+.task-modal-task-assignee-div{
+  /* background-color: #111111; */
+  padding: 0.1rem;
+}
+
+.assignee-div-title {
+  font-size: 1.3em;
+  font-weight: 500;
+}
+
+.task-modal-task-assignee-div a{
+  text-decoration: none;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0.3rem;
+}
+.task-modal-task-assignee-div a > img{
+  width: 2.5rem;
+  height: 2.5rem;
+}
+.task-modal-task-assignee-div a > p{
+  color: var(--text-color);
+  /* color: white; */
+  font-size: 1.2em;
+}
+
+.task-modal-button-div{
+  background-color: var(--container-bg);
+  border-left: 1px solid var(--border-color);
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 30%; /* macthing with task-sidebar*/
+  padding: 0.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+.task-modal-button{
+  color: var(--text-color);
+  padding: 0.5rem 1.5rem 0.5rem 1.5rem;
+  font-size: 1.2em;
+  font-weight: 420;
+  background-color: var(--container-bg);
+  border: 1px solid var(--text-color);
+  border-radius: 0.8rem;
+  box-shadow: 0px 3px 10px 0px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+}
+.task-modal-button:hover{
+  background-color: var(--secondary-color);
+}
+
+.task-modal-button a{
+  text-decoration: none;
+  color:var(--text-color);
+}
+
+/* task modal end */
+
+
+
+/* webkit related */
+/* Styles for WebKit-based browsers */
+::-webkit-scrollbar {
+  width: 0.5em; /* Width of the scrollbar */
+}
+::-webkit-scrollbar-track {
+  background-color: var(--primary-color) /* Track color */
+}
+::-webkit-scrollbar-thumb {
+  background-color: var(--secondary-color); /* Thumb color */
+  border-radius: 1em;
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(58, 59, 60, 0.5); /* Thumb color on hover */
+}

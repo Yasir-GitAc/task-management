@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+  <title>Company Settings | Trello Task Manager</title>
+{% endblock title %}
+
+
+{% block content %}
+  <main>
+    <div class="workspace-navbar">
+      <div class="workspace-navbar-div">
+        <a href="{% url 'company:company-profile' pk=company.id %}" class="company-info-anchor">
+          <img src="{{company.company_logo.url }}" alt="company logo" class="company_logo company-info-anchor-logo"/>
+          <span class="comapany-name">{{company.name}}</span>
+        </a>
+      </div>
+      <div class="workspace-navbar-div">
+        <div class="company-members" title="company members">
+          {% for member in members %}
+            <a href="{% url 'account:user-profile' pk=member.id %}">
+              <img src="{{member.profile_picture.url}}" alt="company member" class="company_logo"/>
+            </a>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="workspace-navbar-div send-right-end">
+        <div class="workspace-navbar-settings-div">
+          <div class="workspace-navbar-settings-element">
+            <i class="fa-solid fa-pen-to-square"></i>
+            <a href="{% url 'task:create-task' c_id=company.id %}">
+              <p>Create Task</p>
+            </a>
+          </div>
+          <div class="workspace-navbar-settings-element">
+            <i class="fa-solid fa-user-plus"></i>
+            <a href="{% url 'company:show-users-list' company_id=company.id %}">
+              <p>Add Member</p>
+            </a>
+          </div>
+          <div class="workspace-navbar-settings-element">
+            <a href="{% url 'company:company-settings' pk=company.id %}">
+              <i class="fa-solid fa-gear"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="workspace-table-section-list-cards-container">
+      <a href="{% url 'company:show-member-list' pk=company.id %}" class="list-card-wrapper-anchor">
+        <div class="list-card-small">
+          <div class="list-card-main-div">
+            <div class="list-card-info-div">
+              <div class="list-card-info-logo-div">
+                <p class="additional-margin-for-small-para">
+                  {% if request.user == company.creator %}
+                    Delete Member
+                  {% else %}
+                    Company Members
+                  {% endif %}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+      <a href="{% url 'company:show-task-list' pk=company.id %}" class="list-card-wrapper-anchor">
+        <div class="list-card-small">
+          <div class="list-card-main-div">
+            <div class="list-card-info-div">
+              <div class="list-card-info-logo-div">
+                <p class="additional-margin-for-small-para">
+                  {% if request.user == company.creator %}
+                    Delete Task
+                  {% else %}
+                    Company Task
+                  {% endif %}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+      {% if request.user == company.creator %}
+        <a href="{% url 'company:delete-company' company_id=company.id %}" class="list-card-wrapper-anchor">
+          <div class="list-card-small">
+            <div class="list-card-main-div">
+              <div class="list-card-info-div">
+                <div class="list-card-info-logo-div">
+                  <p class="additional-margin-for-small-para" style="color:red">
+                    Delete Company
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </a>
+      {% else %}
+        <a href="{% url 'task:create-task' c_id=company.id %}" class="list-card-wrapper-anchor">
+          <div class="list-card-small">
+            <div class="list-card-main-div">
+              <div class="list-card-info-div">
+                <div class="list-card-info-logo-div">
+                  <p class="additional-margin-for-small-para" style="color:red">
+                    Leave Company
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </a>
+      {% endif %}
+    </div>
+
+  </main>
+{% endblock content %}
+
+

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+{% load static %}
+{% load widget_tweaks %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kenia&family=Mukta:wght@300;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/form.css' %}">
+  <title>Update Profile | Trello Task Manager </title>
+</head>
+<body>
+  <div class="page-container">
+    <div class="form-content">
+
+      <div class="form-container">
+        <p>Register Form</p>
+        <form class="form" method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
+
+          {% for field in form %}
+            {% if field.name == 'profile_picture' %}
+              <div class="file-input-div">
+                <label for="Profile-picture" class="label-for-fileinput">Profile Picture</label>
+                {% render_field field class="form-input file-input" %}
+              </div>
+            {% else %}
+              {%render_field field class+='form-input'%}
+            {%endif%}
+          {% endfor %}
+
+          <button type="submit" class="form-submit-btn" value="Submit" >Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

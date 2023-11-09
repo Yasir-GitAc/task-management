@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+{% load static %}
+{% load widget_tweaks %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kenia&family=Mukta:wght@300;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/form.css' %}" >
+  <title>Create Task | Trello Task Manager</title>
+</head>
+<body>
+  <div class="page-container">
+    <div class="form-content">
+      <div class="form-container" style="border-radius: 1rem;">
+        <p>Create Task</p>
+        <form class="form" action="#" method="POST">
+          <div class="addtional-div-for-task-form">
+            {% csrf_token %}
+
+            {% for field in form %}
+              <div class="form-input-container">
+                <label for="{{field.name}}" class="form-label">{{field.label}}</label>
+                {% render_field field class+="form-input" %}
+              </div>
+            {% endfor %}
+
+          </div>
+          <div class="form-button-div">
+            <button type="submit" class="form-submit-btn" value="Submit" >Submit</button>
+            <button type="button" class="form-submit-btn" onclick="history.back()" >Go Back</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    console.log(event)
+    function handleEnterKey(event) {
+      if (event.key === 'Enter') {
+        event.preventDefault(); // Prevent form submission
+        document.getElementById('addtochecklist-btn').click();
+      }
+    }
+
+    function addToList() {
+      const textInput = document.getElementById('checklist-input');
+      const checklist = document.getElementById('checklist');
+      const itemText = textInput.value.trim();
+
+      if (itemText !== '') {
+        const listItem = document.createElement('li');
+        listItem.innerHTML = `
+          <div class="checklist-container">
+            <input type="checkbox" id="item-${checklist.children.length}" name="items" value="${itemText}">
+            <label for="item-${checklist.children.length}">${itemText}</label>
+          </div>
+        `;
+        checklist.appendChild(listItem);
+        textInput.value = '';
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,124 @@
+    <!-- navigations -->
+    <!-- navbar -->
+    <nav class="navbar">
+      <div class="logo_item" title="Trello, your task manager">
+        <a href="{% url 'task:user-workspace' %}"><p>Trello</p></a>
+      </div>
+
+      <form method="GET" action="{% url 'search-result' %}" class="search_bar">
+        <input type="text" name="search_query" value="{{search_query}}" placeholder="search company or user" >
+        <button type="submit">
+          <i class="fa-solid fa-magnifying-glass search_bar_search_icon"></i>
+        </button>
+      </form>
+
+      <div class="navbar_content">
+        <a href="{% url 'company:notifications' %}" class="bell-icon"
+            unseen-ntf-count="{{ my_custom_variable }}">
+          <i class="fa-regular fa-bell"></i>
+        </a>
+        <a href="{% url 'account:logout' %}">
+          <i class="fa-solid fa-arrow-right-from-bracket"></i>
+        </a>
+        <a href="{% url 'account:user-profile' pk=request.user.id %}" >
+          <img src="{{request.user.profile_picture.url}}" alt="" class="profile" />
+        </a>
+      </div>
+    </nav>
+
+    <!-- sidebar -->
+    <nav class="sidebar">
+      <div class="menu_content">
+
+        <ul class="menu_items">
+
+          <li class="item" title="create new task">
+            <a href="{% url 'task:user-workspace' %}" class="nav_link {% if "user-workspace" in request.path %}nav_link_active{%endif%}">
+              <span class="navlink_icon">
+                <i class="fa-solid fa-bars-progress"></i>
+              </span>
+              <span class="navlink">Task Workspace</span>
+            </a>
+          </li>
+
+          <!-- duplicate or remove this li tag if you want to add or remove navlink with submenu -->
+          <!-- start -->
+          <li class="item" title="company your are added">
+            <div href="#" class="nav_link submenu_item">
+              <span class="navlink_icon">
+                <i class="fa-solid fa-building"></i>
+              </span>
+              <span class="navlink">Company</span>
+              <i class="bx bx-chevron-right arrow-left"></i>
+            </div>
+
+            <ul class="menu_items submenu">
+              {% for company in request.user.company_members.all %}
+                <a href="{% url 'company:company-workspace' pk=company.id %}" class="nav_link sublink">
+                  <img src="{{company.company_logo.url}}" alt="" class="company_logo" />
+                  <span class="navlink">{{company.name}}</span>
+                </a>
+              {% empty %}
+                <a href="#" class="nav_link sublink">
+                  <span class="navlink">No Company Joined</span>
+                </a>
+              {% endfor %}
+            </ul>
+          </li>
+          <!-- end -->
+
+          <!-- duplicate this li tag if you want to add or remove  navlink with submenu -->
+          <!-- start -->
+          <li class="item" title="company you created">
+            <div href="#" class="nav_link submenu_item">
+              <span class="navlink_icon">
+                <i class="fa-solid fa-landmark-dome"></i>
+              </span>
+              <span class="navlink">Your Company</span>
+              <i class="bx bx-chevron-right arrow-left"></i>
+            </div>
+
+            <ul class="menu_items submenu">
+              {% for company in request.user.created_companies.all %}
+                <a href="{% url 'company:company-workspace' pk=company.id %}" class="nav_link sublink">
+                  <img src="{{company.company_logo.url}}" alt="" class="company_logo" />
+                  <span class="navlink">{{company.name}}</span>
+                </a>
+              {% empty %}
+                <a href="{% url 'company:create-company' %}" class="nav_link sublink">
+                  <span class="navlink">No Company Created</span>
+                </a>
+              {% endfor %}
+            </ul>
+          </li>
+          <!-- end -->
+
+          <li class="item" title="create new task">
+            <a href="{% url 'task:show-company-list' %}" class="nav_link">
+              <span class="navlink_icon">
+                <i class="fa-solid fa-pen-to-square"></i>
+              </span>
+              <span class="navlink">Create Task</span>
+            </a>
+          </li>
+
+          <li class="item" title="create new company" >
+            <a href="{% url 'company:create-company' %}" class="nav_link">
+              <span class="navlink_icon">
+                <i class="fa-solid fa-square-plus"></i>
+              </span>
+              <span class="navlink">Create Company</span>
+            </a>
+          </li>
+
+        </ul>
+
+        <div class="bottom_content">
+          <div class="bottom">
+            <p>
+              &copy; 2023 <a href="#">Trello Co. Ltd</a>. All rights reserved.
+            </p>
+          </div>
+        </div>
+      </div>
+    </nav>

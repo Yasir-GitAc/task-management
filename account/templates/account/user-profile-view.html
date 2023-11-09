@@ -1,0 +1,284 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+  <title>{{user.username}} Profile |Trello</title>
+{% endblock title %}
+
+{% block statics %}
+  <link rel="stylesheet" href="{% static 'css/profile-view.css' %}"/>
+{% endblock statics %}
+
+{% block content %}
+  <main>
+    <div class="profile-information-container">
+
+      <div class="profile-container">
+        <div class="profile-container-img-div">
+          <img src="{{ user.profile_picture.url }}" alt="User's Profile Picture">
+        </div>
+        <div class="profile-container-information-div">
+          <div class="profile-info-div-para-container">
+            <p class="profile-info-div-title">Name : </p>
+            <p class="profile-info-div-info">{{user.username}}</p>
+          </div>
+          <div class="profile-info-div-para-container">
+            <P class="profile-info-div-title">Email : </P>
+            <p class="profile-info-div-info">{{user.email}}</p>
+          </div>
+          <div class="profile-info-div-para-container">
+            <P class="profile-info-div-title">Phone : </P>
+            <p class="profile-info-div-info">{{user.phone}}</p>
+          </div>
+          <div class="profile-info-div-para-container">
+            <P class="profile-info-div-title">Company : </P>
+            <p class="profile-info-div-info">{{user.company}}</p>
+          </div>
+          <div class="profile-info-div-para-container">
+            <P class="profile-info-div-title">Joined : </P>
+            <p class="profile-info-div-info">{{user.joined|timesince}} ago</p>
+          </div>
+          <div class="profile-info-div-para-container">
+            <P class="profile-info-div-title bio-align-top">Bio:</P>
+            <p class="profile-info-div-info">
+              {{user.bio}}
+            </p>
+          </div>
+          {% if request.user.id != user.id and request.user.created_companies.count > 0 %}
+            <div class="profile-info-div-para-container">
+              <a href="{% url 'company:show-created-company-list' user_id=user.id %}">
+                <p class="profile-info-div-info">Send Request To Add To Your Company</p>
+              </a>
+            </div>
+          {% endif %}
+          {% if request.user.id == user.id %}
+            <div class="profile-info-div-para-container">
+              <a href="{% url 'account:update-user-profile' pk=user.id %}">
+                <p class="profile-info-div-info">Update Information</p>
+              </a>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+
+      {% if users_companies %}
+        <div class="companay-table-container">
+          {% if request.user.id == user.id %}
+            <p class="company-table-container-title">Your Companies</p>
+          {% else %}
+            <p class="company-table-container-title">{{user.username}}'s Company</p>
+          {% endif %}
+          <div class="tWrap">
+            <div class="tWrap__head">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Company Name</th>
+                    <th>Date Created</th>
+                    <th>Members</th>
+                  </tr>
+                </thead>
+              </table>
+            </div> <!--/.tWrap__head-->
+            <div class="tWrap__body">
+              <table>
+                <tbody>
+                  {% for company in users_companies %}
+                    <tr>
+                      <td><a href="{% url 'company:company-profile' pk=company.id %}" class="table-name">{{company.name}}</a></td>
+                      <td>{{company.created}}</td>
+                      <td>
+                        <div class="company-members company-members-in-table" title="company members">
+                          {% if company.members.count > 0 %}
+                            {% for member in company.members.all %}
+                              <a href="{% url 'account:user-profile' pk=member.id %}">
+                                <img src="{{member.profile_picture.url}}" alt="company member" class="company_logo"/>
+                              </a>
+                            {% endfor %}
+                          {% endif %}
+                        </div>
+                      </td>
+                    </tr>
+                  {% endfor %}
+
+                </tbody>
+              </table>
+            </div> <!--/.tWrap__body-->
+          </div> <!-- /.tWrap -->
+
+        </div>
+      {% endif %}
+
+      {% if companies_user_in %}
+        <div class="companay-table-container">
+          {% if request.user.id == user.id %}
+            <p class="company-table-container-title">Companies You Are In</p>
+          {% else %}
+            <p class="company-table-container-title">Company {{user.username}} Is IN</p>
+          {% endif %}
+
+          <div class="tWrap">
+            <div class="tWrap__head">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Company Name</th>
+                    <th>Date Created</th>
+                    <th>Members</th>
+                  </tr>
+                </thead>
+              </table>
+            </div> <!--/.tWrap__head-->
+            <div class="tWrap__body">
+              <table>
+                <tbody>
+                  {% for company in companies_user_in %}
+                    <tr>
+                      <td><a href="{% url 'company:company-profile' pk=company.id %}" class="table-name">{{company.name}}</a></td>
+                      <td>{{company.created}}</td>
+                      <td>
+                        <div class="company-members company-members-in-table" title="company members">
+                          {% if company.members.count > 0 %}
+                            {% for member in company.members.all %}
+                              <a href="{% url 'account:user-profile' pk=member.id %}">
+                                <img src="{{member.profile_picture.url}}" alt="company member" class="company_logo"/>
+                              </a>
+                            {% endfor %}
+                          {% endif %}
+                        </div>
+                      </td>
+                    </tr>
+                  {% endfor %}
+                  <tr>
+                    <td><a href="#" class="table-name">Weave Communications 2</a></td>
+                    <td>20/10/2023 10:50PM</td>
+                    <td>
+                      <div class="company-members company-members-in-table" title="company members">
+                        <a href="#">
+                          <img src="person-2.jpg" alt="company member" class="company_logo"/>
+                        </a>
+                        <a href="#">
+                          <img src="blog-3.jpg" alt="company-member" class="company_logo"/>
+                        </a>
+                        <a href="#">
+                          <img src="person-2.jpg" alt="company-member" class="company_logo"/>
+                        </a>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><a href="#" class="table-name">Weave Communications 3</a></td>
+                    <td>20/10/2023 10:50PM</td>
+                    <td>
+                      <div class="company-members company-members-in-table" title="company members">
+                        <a href="#">
+                          <img src="person-2.jpg" alt="company member" class="company_logo"/>
+                        </a>
+                        <a href="#">
+                          <img src="blog-3.jpg" alt="company-member" class="company_logo"/>
+                        </a>
+                        <a href="#">
+                          <img src="person-2.jpg" alt="company-member" class="company_logo"/>
+                        </a>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><a href="#" class="table-name">Weave Communications 3</a></td>
+                    <td>20/10/2023 10:50PM</td>
+                    <td>
+                      <div class="company-members company-members-in-table" title="company members">
+                        <a href="#">
+                          <img src="person-2.jpg" alt="company member" class="company_logo"/>
+                        </a>
+                        <a href="#">
+                          <img src="blog-3.jpg" alt="company-member" class="company_logo"/>
+                        </a>
+                        <a href="#">
+                          <img src="person-2.jpg" alt="company-member" class="company_logo"/>
+                        </a>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><a href="#" class="table-name">Weave Communications 3</a></td>
+                    <td>20/10/2023 10:50PM</td>
+                    <td>
+                      <div class="company-members company-members-in-table" title="company members">
+                        <a href="#">
+                          <img src="person-2.jpg" alt="company member" class="company_logo"/>
+                        </a>
+                        <a href="#">
+                          <img src="blog-3.jpg" alt="company-member" class="company_logo"/>
+                        </a>
+                        <a href="#">
+                          <img src="person-2.jpg" alt="company-member" class="company_logo"/>
+                        </a>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><a href="#" class="table-name">Weave Communications 3</a></td>
+                    <td>20/10/2023 10:50PM</td>
+                    <td>
+                      <div class="company-members company-members-in-table" title="company members">
+                        <a href="#">
+                          <img src="person-2.jpg" alt="company member" class="company_logo"/>
+                        </a>
+                        <a href="#">
+                          <img src="blog-3.jpg" alt="company-member" class="company_logo"/>
+                        </a>
+                        <a href="#">
+                          <img src="person-2.jpg" alt="company-member" class="company_logo"/>
+                        </a>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><a href="#" class="table-name">Weave Communications 3</a></td>
+                    <td>20/10/2023 10:50PM</td>
+                    <td>
+                      <div class="company-members company-members-in-table" title="company members">
+                        <a href="#">
+                          <img src="person-2.jpg" alt="company member" class="company_logo"/>
+                        </a>
+                        <a href="#">
+                          <img src="blog-3.jpg" alt="company-member" class="company_logo"/>
+                        </a>
+                        <a href="#">
+                          <img src="person-2.jpg" alt="company-member" class="company_logo"/>
+                        </a>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><a href="#" class="table-name">Weave Communications 3</a></td>
+                    <td>20/10/2023 10:50PM</td>
+                    <td>
+                      <div class="company-members company-members-in-table" title="company members">
+                        <a href="#">
+                          <img src="person-2.jpg" alt="company member" class="company_logo"/>
+                        </a>
+                        <a href="#">
+                          <img src="blog-3.jpg" alt="company-member" class="company_logo"/>
+                        </a>
+                        <a href="#">
+                          <img src="person-2.jpg" alt="company-member" class="company_logo"/>
+                        </a>
+                      </div>
+                    </td>
+                  </tr>
+
+                </tbody>
+              </table>
+            </div> <!--/.tWrap__body-->
+          </div> <!-- /.tWrap -->
+
+        </div>
+      {% endif %}
+
+    </div>
+  </main>
+{% endblock content %}
+
+

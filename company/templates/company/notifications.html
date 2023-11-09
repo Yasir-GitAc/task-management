@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  <title>Select Company For Create Task|Trello Task Manangement</title>
+{% endblock title %}
+
+{% block content %}
+  <main>
+    <div class="list-card-container">
+      {% for notification in all_ntf_of_user %}
+        <div class="list-card">
+          <div class="list-card-main-div">
+            <div class="list-card-info-div">
+              <div class="list-card-info-logo-div">
+                {% if notification.sender %}
+                  <a href="{% url 'account:user-profile' pk=notification.sender.id %}">
+                    <img src="{{notification.sender.profile_picture.url}}" alt="" class="company_logo" />
+                  </a>
+                {% elif notification.company_sender %}
+                  <a href="{% url 'company:company-profile' pk=notification.company_sender.id %}">
+                    <img src="{{notification.company_sender.company_logo.url}}" alt="" class="company_logo" />
+                  </a>
+                {% endif %}
+                <a href="#">
+                  {{notification.title}}
+                </a>
+              </div>
+              <div class="list-card-info-name-div">
+                <p>{{notification.subject|truncatewords:20}}</p>
+              </div>
+            </div>
+            <div class="list-card-stats-div">
+              <p>Date: {{notification.created}}</p>
+              <!-- <img src="person-2.jpg" alt="" class="task-assignee send-right-end"/> -->
+            </div>
+          </div>
+          <div class="list-card-side-div showing-icon">
+            {% if notification.type == 'addrequest' %}
+              <a href="{% url 'company:accept-add-request' company_id=notification.company_sender.id user_id=request.user.id %}">
+                <i class="fa-solid fa-right-to-bracket" title="join"></i>
+              </a>
+            {% elif notification.type == 'requestaccept' %}
+              <a href="{% url 'account:user-profile' pk=notification.sender.id %}">
+                <i class="fa-solid fa-right-to-bracket" title="See user profile"></i>
+              </a>
+            {% elif notification.type == 'assignment' %}
+              <a href="{% url 'task:user-workspace' %}">
+                <i class="fa-solid fa-bars-progress" title="Go To Task Workspace "></i>
+              </a>
+            {% elif notification.type == 'information' %}
+              <a href="{% url 'task:user-workspace' %}">
+                <i class="fa-solid fa-bars-progress" title="Go To Task Workspace "></i>
+              </a>
+            {% endif %}
+            <!-- <i class="fa-solid fa-trash-can"></i> -->
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+
+  </main>
+{% endblock content %}

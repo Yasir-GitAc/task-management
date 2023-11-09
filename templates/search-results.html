@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  <title>Send Add Request|Trello Task Manangement</title>
+{% endblock title %}
+
+{% block content %}
+  <main>
+    <div class="list-card-container">
+      {% for company in companies %}
+        <a href="{% url 'company:company-profile' pk=company.id %}" class="list-card-wrapper-anchor">
+          <div class="list-card">
+            <div class="list-card-main-div">
+              <div class="list-card-info-div">
+                <div class="list-card-info-logo-div">
+                  <img src="{{company.company_logo.url}}" alt="" class="company_logo" />
+                  <p>
+                    {{company.name}} {% if company.creator == request.user %}(your company){% endif %}
+                  </p>
+
+                </div>
+                <div class="list-card-info-name-div">
+                  <p>{{company.company_bio|truncatewords:20}}</p>
+                </div>
+              </div>
+              <div class="list-card-stats-div">
+                <p>Date Created: {{company.created}}</p>
+                <p class="send-right-end">Total Member: {{company.members.all.count}}</p>
+                <p>Total Task: {{company.task_set.all.count}}</p>
+              </div>
+            </div>
+            <div class="list-card-side-div showing-icon">
+              {% if request.user == company.creator %}
+                <i class="fa-solid fa-landmark-dome" title="This is your company, click to go profile" ></i>
+              {% else %}
+                <i class="fa-solid fa-building" title="This is a company, click to go profile"></i>
+              {% endif %}
+            </div>
+
+          </div>
+        </a>
+      {% empty %}
+        <div class="list-card">
+          <div class="list-card-main-div">
+            <div class="list-card-info-div">
+              <div class="list-card-info-logo-div">
+                <p>
+                  No Company Found
+                </p>
+
+              </div>
+              <div class="list-card-info-name-div">
+                <p></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+
+
+      {% for user in user_list %}
+        <div class="list-card">
+          <div class="list-card-main-div">
+            <div class="list-card-info-div">
+              <div class="list-card-info-logo-div">
+                <img src="{{user.profile_picture.url}}" alt="" class="company_logo" />
+                <a href="{% url 'account:user-profile' pk=user.id %}">
+                  {{user.username}}
+                </a>
+              </div>
+              <div class="list-card-info-name-div">
+                <p>{{user.bio|truncatewords:20}}</p>
+              </div>
+            </div>
+            <div class="list-card-stats-div">
+              <p>join date: {{user.joined}}</p>
+            </div>
+          </div>
+
+          <div class="list-card-side-div showing-icon">
+            {% if user.is_superuser %}
+              <i class="fa-solid fa-star" title="This user is Admin,click to go profile"></i>
+            {% else %}
+              <i class="fa-solid fa-user" title="click to go profile"></i>
+            {% endif %}
+          </div>
+        </div>
+      {% empty %}
+        <div class="list-card">
+          <div class="list-card-main-div">
+            <div class="list-card-info-div">
+              <div class="list-card-info-logo-div">
+                <p>
+                 No User Found
+                </p>
+
+              </div>
+              <div class="list-card-info-name-div">
+                <p></p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      {% endfor %}
+
+    </div>
+
+  </main>
+{% endblock content %}
+

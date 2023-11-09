@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  <title>Send Add Request|Trello Task Manangement</title>
+{% endblock title %}
+
+{% block content %}
+  <main>
+    <div class="list-card-container">
+
+      {% for user in user_list %}
+        <div class="list-card">
+          <div class="list-card-main-div">
+            <div class="list-card-info-div">
+              <div class="list-card-info-logo-div">
+                <img src="{{user.profile_picture.url}}" alt="" class="company_logo" />
+                <a href="{% url 'account:user-profile' pk=user.id %}">
+                  {{user.username}}
+                </a>
+              </div>
+              <div class="list-card-info-name-div">
+                <p>{{user.bio|truncatewords:20}}</p>
+              </div>
+            </div>
+            <div class="list-card-stats-div">
+              <p>join date: {{user.joined}}</p>
+            </div>
+          </div>
+          {% if user.is_superuser %}
+            <div class="list-card-side-div showing-icon" title="add request can not be send to admin">
+              <i class="fa-solid fa-star"></i>
+            </div>
+          {% else %}
+            <div class="list-card-side-div showing-icon">
+              {% if user in req_receivers_list %}
+                <a href="{% url 'company:cancel-add-request' company_id=company_id user_id=user.id %}">
+                  <i class="fa-solid fa-x" title="cancel add request"></i>
+                </a>
+              {% elif user in company_members_list %}
+                <a href="#">
+                  <i class="fa-solid fa-check" title="user already company member"></i>
+                </a>
+              {% else %}
+                <a href="{% url 'company:send-add-request' company_id=company_id user_id=user.id %}">
+                  <i class="fa-solid fa-user-plus" title="send add request to company"></i>
+                </a>
+              {% endif %}
+              <!-- <i class="fa-solid fa-arrow-right-to-bracket"></i> -->
+              <!-- <i class="fa-solid fa-check"></i> -->
+            </div>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+
+  </main>
+{% endblock content %}

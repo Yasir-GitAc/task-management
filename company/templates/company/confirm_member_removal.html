@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+  <title>Delete Member|Trello Task Management</title>
+{% endblock title %}
+
+
+{% block content %}
+  <main>
+    <div class="companay-table-container">
+
+      <p class="delete_page_header_text">You sure you want to remove {{user.username}}.
+        <a href="{% url 'company:confirm-remove-member' company_id=company_id user_id=user.id %}">Yes,Remove This Member</a>
+      </p>
+
+      <div class="tWrap">
+        <div class="tWrap__head">
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Date Joined</th>
+                <th>Total Finised Task</th>
+              </tr>
+            </thead>
+          </table>
+        </div> <!--/.tWrap__head-->
+        <div class="tWrap__body">
+          <table>
+            <tbody>
+
+              <tr>
+                <td><a href="{% url 'account:user-profile' pk=user.id %}" class="table-name">{{user.username}}</a></td>
+                <td>{{date_joined}}</td>
+                <td>{{total_finished_task}}</td>
+              </tr>
+
+
+            </tbody>
+          </table>
+        </div> <!--/.tWrap__body-->
+      </div> <!-- /.tWrap -->
+
+    </div>
+
+
+  </main>
+{% endblock content %}

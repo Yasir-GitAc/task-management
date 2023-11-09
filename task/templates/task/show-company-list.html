@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  <title>Select Company For Create Task|Trello Task Manangement</title>
+{% endblock title %}
+
+{% block content %}
+  <main>
+    <div class="list-card-container">
+
+      {% for company in companies %}
+        <a href="{% url 'task:create-task' c_id=company.id %}" class="list-card-wrapper-anchor">
+          <div class="list-card">
+            <div class="list-card-main-div">
+              <div class="list-card-info-div">
+                <div class="list-card-info-logo-div">
+                  <img src="{{company.company_logo.url}}" alt="" class="company_logo" />
+                  <p>
+                    {{company.name}} {% if company.creator == request.user %}(your company){% endif %}
+                  </p>
+
+                </div>
+                <div class="list-card-info-name-div">
+                  <p>{{company.company_bio|truncatewords:20}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </a>
+      {% empty %}
+        <a href="{% url 'company:create-company' %}" class="list-card-wrapper-anchor">
+          <div class="list-card">
+            <div class="list-card-main-div">
+              <div class="list-card-info-div">
+                <div class="list-card-info-logo-div">
+                  <p>
+                    You haven't joined any company.
+                  </p>
+
+                </div>
+                <div class="list-card-info-name-div">
+                  <p></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </a>
+      {% endfor %}
+
+      {% for company in user_companies %}
+        <a href="{% url 'task:create-task' c_id=company.id %}" class="list-card-wrapper-anchor">
+          <div class="list-card">
+            <div class="list-card-main-div">
+              <div class="list-card-info-div">
+                <div class="list-card-info-logo-div">
+                  <img src="{{company.company_logo.url}}" alt="" class="company_logo" />
+                  <p>
+                    {{company.name}} {% if company.creator == request.user %}(your company){% endif %}
+                  </p>
+
+                </div>
+                <div class="list-card-info-name-div">
+                  <p>{{company.company_bio|truncatewords:20}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </a>
+      {% empty %}
+        <a href="{% url 'company:create-company' %}" class="list-card-wrapper-anchor">
+          <div class="list-card">
+            <div class="list-card-main-div">
+              <div class="list-card-info-div">
+                <div class="list-card-info-logo-div">
+                  <p>
+                    You haven't created any company.
+                  </p>
+
+                </div>
+                <div class="list-card-info-name-div">
+                  <p></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </a>
+      {% endfor %}
+    </div>
+
+  </main>
+{% endblock content %}

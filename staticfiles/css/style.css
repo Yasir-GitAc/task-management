@@ -1,0 +1,132 @@
+/* Google Fonts - Poppins */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+:root {
+  --secondary-color:  #e5d9e7;
+  --text-color:#111111;
+  --text-color-light:#202727;
+
+  --background-color-grey-blur: rgb(128 128 128 / 0.3);
+  --container-bg: #ffffff;
+}
+
+html{
+  font-size: 62.5%;
+}
+
+.main {
+  height: 100vh;
+  width: 100%;
+}
+.wrapper,
+.slide {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.slide {
+  overflow: hidden;
+}
+/* .slide::before {
+  content: "";
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.1);
+  z-index: 10;
+} */
+.slide .image {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.slide .image-data {
+  position: absolute;
+  top: 80%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  width: 100%;
+  background-color: var(--background-color-grey-blur);
+  backdrop-filter: blur(1px);
+  z-index: 100;
+}
+.image-data span.text {
+  font-size: 1.4em;
+  font-weight: 400;
+  /* color: #fff; */
+  color: var(--text-color);
+}
+.image-data h2 {
+  font-size: 3.5em;
+  font-weight: 600;
+  /* color: #fff; */
+  color: var(--text-color);
+}
+a.button {
+  display: inline-block;
+  font-size: 1.2em;
+  padding: 1rem 2rem;
+  border-radius: 2.5rem;
+  color: var(--container-bg);
+  background: var(--text-color-light);
+  text-decoration: none;
+  margin-top: 2.5rem;
+  transition: all 0.3s ease;
+}
+a.button:hover {
+  color: #fff;
+  background-color: var(--text-color);
+}
+
+/* swiper button css */
+.nav-btn {
+  height: 5rem;
+  width: 5rem;
+  border-radius: 50%;
+  /* background: rgba(255, 255, 255, 0.3); */
+  background: var(--background-color-grey-blur);
+  backdrop-filter: blur(1px);
+}
+.nav-btn:hover {
+  background: rgba(255, 255, 255, 0.4);
+}
+.swiper-button-next {
+  right: 5rem;
+}
+.swiper-button-prev {
+  left: 5rem;
+}
+.nav-btn::before,
+.nav-btn::after {
+  font-size: 2.5em;
+  color: var(--text-color);
+}
+.swiper-pagination-bullet {
+  opacity: 1;
+  height: 1.2rem;
+  width: 1.2rem;
+  background-color: grey;
+  visibility: hidden;
+}
+.swiper-pagination-bullet-active {
+  border: 2px solid var(--text-color);
+  background-color: gainsboro;
+}
+
+@media screen and (max-width: 768px) {
+  .nav-btn {
+    visibility: hidden;
+  }
+  .swiper-pagination-bullet {
+    visibility: visible;
+  }
+}

@@ -1,0 +1,277 @@
+/* Import Google font - Poppins */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+:root{
+  --container-bg: #ffffff;
+  --background-color:  #c1cdc0;
+  --text-color:#111111;
+}
+
+html{
+  font-size: 62.5%; /*in this case 1rem=10px, 1em=10px */
+}
+
+.page-container{
+  width: 100%;
+  height: 100vh;
+  background-color:var(--background-color);
+  /* background-color: #c1cdc0; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-content{
+  width: 60%;
+  height: 75%;
+  /* background-color: red; */
+  box-shadow: 0px 3px 10px 0px rgba(0, 0, 0, 0.15);
+  display: flex;
+  border-radius: 1rem;
+}
+
+.form-content-for-login-form{
+  width: 50%;
+  height: 40%;
+}
+
+@media (max-width: 700px) {
+  .form-content{
+    flex-direction: column;
+  }
+}
+
+.form-img-container{
+  /* width: 50%; */
+  flex:1;
+  height: 100%;
+  /* background-color: yellow; */
+  font-size: 3em;
+  color:black;
+  border-top-left-radius: 1rem;
+  border-bottom-left-radius: 1rem;
+}
+
+.form-img-container img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-top-left-radius: 1rem;
+  border-bottom-left-radius: 1rem;
+  position: relative;
+}
+
+.company-text{
+  position: absolute;
+  text-align: center;
+  top: 40%;
+  left: 22%;
+  z-index: 1;
+  color: white;
+  font-size: 1.5em;
+}
+.company-text a{
+  text-decoration: none;
+  color: white;
+}
+
+@media (max-width: 700px) {
+  .company-text{
+    display: none;
+  }
+}
+
+
+.form-container{
+  /* width: 50%; */
+  flex: 1;
+  height: 100%;
+  background-color:var(--container-bg);
+  /* background-color:red; */
+  font-size: 3em;
+  color: var(--text-color);
+  border-top-right-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+  /* border-radius: 1rem; */
+  text-align: center;
+  overflow-y: scroll;
+  z-index: 2;
+}
+
+.form-container::-webkit-scrollbar{
+  display: none;
+}
+.form-container p{
+  margin-top: 1rem;
+  color: var(--text-color);
+}
+
+.form{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.form a{
+  color: var(--text-color);
+  font-size: 0.5em;
+}
+.form text{
+  font-size: 0.5em;
+}
+
+.addtional-div-for-task-form{
+  /* background-color: red; */
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding-left: 2rem;
+  margin-left: 1rem;
+}
+
+.form-input-container{
+  display: flex;
+}
+.form-input-container > textarea{
+  height: 8rem;
+}
+
+.form-input{
+  padding: 0.5rem 1rem 0.2rem 1rem;
+  margin-bottom: 1.2rem;
+  width: 65%;
+  border: none;
+  border-bottom: 0.1rem solid grey;
+  color: var(--text-color);
+  font-size: 0.55em;
+}
+.file-input::placeholder{
+  font-size: 0.6em;
+  color: grey;
+}
+
+.form-label{
+  font-size: 0.55em;
+  border: none;
+  white-space: nowrap;
+  margin-right: 1rem;
+}
+
+.form > textarea {
+  width: 65%;
+  height: 5rem;
+}
+.form-input:focus,
+.form-input:hover{
+  border-bottom: 1.5px solid var(--text-color);
+}
+.file-input{
+  border: none;
+  border-bottom: none;
+}
+
+.form-checklist-input-div{
+  width: 65%;
+  /* background-color: yellow; */
+  padding:0;
+  margin: 0;
+}
+
+.form-checklist-input-div input{
+  /* background-color: green; */
+  width: 75%;
+  margin-right: 2rem ;
+}
+
+.form-checklist-input-div button{
+  padding: 0rem 0.4rem 0rem 0.4rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  color: var(--text-color);
+  font-size: 0.5em;
+  font-weight: 500;
+  background-color: var(--container-bg);
+  border: 1px solid var(--text-color);
+  border-radius: 0.8rem;
+  box-shadow: 0px 3px 10px 0px rgba(0, 0, 0, 0.15);
+
+}
+
+.form-checklist-div{
+  /* background-color: red; */
+  width: 65%;
+  text-align: start;
+}
+
+.checklist-container{
+  width: 98%;
+  /* background-color: #111111; */
+  margin: 0.5rem;
+  color: var(--text-color);
+  overflow: hidden;
+}
+.checklist-container input{
+  width: 1.8rem;
+  height: 1.8rem;
+}
+
+.checklist-container label{
+  font-size: 0.6em;
+}
+
+.checklist{
+  list-style: none;
+}
+
+.form-submit-btn{
+  padding: 0rem 1rem 0rem 1rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  color: var(--container-bg);
+  font-size: 0.7em;
+  font-weight: 505;
+  background-color: var(--text-color);
+  border: none;
+  border-radius: 0.8rem;
+  cursor: pointer;
+
+}
+
+.file-input-div{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding-left:8rem ;
+  font-size: 0.5em;
+}
+.label-for-fileinput{
+  font-size: 0.6em;
+  color: grey;
+}
+
+
+/* .custom-file-upload {
+  display: inline-block;
+  padding: 10px 20px;
+  background: #3498db;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+}
+
+#fileInput {
+  display: none;
+} */
+/* Hide the actual file input element */
+

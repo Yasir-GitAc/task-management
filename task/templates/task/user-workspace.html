@@ -1,0 +1,230 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %}
+  <title>{{request.user.username}} workspace</title>
+{% endblock title %}
+
+{% block statics %}
+  <script src="{% static 'js/task-handler.js' %}"></script>
+{% endblock statics %}
+
+{% block content %}
+  <main>
+    <div class="workspace-navbar">
+      <div class="task-filter-div unstartedTask" id="unstartedTask" onclick="getTaskBasedOnStatus('unstarted')">Unstarted Task</div>
+      <div class="task-filter-div ongoingTask" id="ongoingTask" onclick="getTaskBasedOnStatus('ongoing')">Ongoing Task</div>
+      <div class="task-filter-div finishedTask" id="finishedTask" onclick="getTaskBasedOnStatus('finished')">Finished Task</div>
+      <div class="task-filter-div" id="createTask"><a href="{% url 'task:show-company-list' %}">Create Task</a></div>
+      <!-- <div class="task-filter-div" id="searchTask">Search Task</div> -->
+    </div>
+    <div class="workspace-table-section">
+      <div class="tWrap">
+        <div class="tWrap__head">
+          <table>
+            <thead>
+              <tr>
+                <th>Finishing Expected</th>
+                <th>Task Title</th>
+                <th>Priority</th>
+                <th>Company</th>
+              </tr>
+            </thead>
+          </table>
+        </div> <!--/.tWrap__head-->
+        <div class="tWrap__body">
+          <table>
+            <tbody class="insert-data">
+              <tr>
+                <td>CADBAD</td>
+                <td>Stephanie Zollowkowsky</td>
+                <td>NG Ninjas</td>
+                <td>Bubble</td>
+              </tr>
+              <tr>
+                <td>098765</td>
+                <td>Ichabod Chrane</td>
+                <td>Programmers 1</td>
+                <td>Sleepy Hollow Website</td>
+              </tr>
+
+              <tr>
+                <td>GABY08</td>
+                <td>Junior Case</td>
+                <td>Programmers 2</td>
+                <td>Izeni</td>
+              </tr>
+              <tr>
+                <td>1B011A</td>
+                <td>Lorem Ipsum</td>
+                <td>Dolor</td>
+                <td>Sit</td>
+              </tr>
+              <tr>
+                <td>1B011A</td>
+                <td>Lorem Ipsum</td>
+                <td>Dolor</td>
+                <td>Sit</td>
+              </tr>
+              <tr>
+                <td>1B011A</td>
+                <td>Lorem Ipsum</td>
+                <td>Dolor</td>
+                <td>Sit</td>
+              </tr>
+              <tr>
+                <td>1B011A</td>
+                <td>Lorem Ipsum</td>
+                <td>Dolor</td>
+                <td>Sit</td>
+              </tr>
+              <tr>
+                <td>1B011A</td>
+                <td>Lorem Ipsum</td>
+                <td>Dolor</td>
+                <td>Sit</td>
+              </tr>
+              <tr>
+                <td>1B011A</td>
+                <td>Lorem Ipsum</td>
+                <td>Dolor</td>
+                <td>Sit</td>
+              </tr>
+              <tr>
+                <td>1B011A</td>
+                <td>Lorem Ipsum</td>
+                <td>Dolor</td>
+                <td>Sit</td>
+              </tr>
+              <tr>
+                <td>1B011A</td>
+                <td>Lorem Ipsum</td>
+                <td>Dolor</td>
+                <td>Sit</td>
+              </tr>
+              <tr>
+                <td>1B011A</td>
+                <td>Lorem Ipsum</td>
+                <td>Dolor</td>
+                <td>Sit</td>
+              </tr>
+              <tr>
+                <td>1B011A</td>
+                <td>Lorem Ipsum</td>
+                <td>Dolor</td>
+                <td>Sit</td>
+              </tr>
+              <tr>
+                <td>1B011A</td>
+                <td>Lorem Ipsum</td>
+                <td>Dolor</td>
+                <td>Sit</td>
+              </tr>
+
+
+
+            </tbody>
+          </table>
+        </div> <!--/.tWrap__body-->
+      </div> <!-- /.tWrap -->
+
+    </div>
+
+    <div class="task-modal hide-task-modal">
+      <div class="task-modal-navbar">
+        <p class="task-modal-title" >Task Title</p>
+        <button type="button" class="task-modal-navbar-close-button">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+
+      </div>
+      <div class="task-modal-main">
+        <div class="task-modal-main-section">
+          <details>
+            <summary>Task Description</summary>
+            <p class="task-drescription-text">
+              ultiple complaints that we received under the US Digital Millennium Copyright Act,
+              we have removed 2 results from this page.
+              If you wish, you may read the DMCA complaints that caused the removals at LumenDataba
+              ultiple complaints that we received under the US Digital Millennium Copyright Act,
+
+            </p>
+          </details>
+
+          <div class="priority">
+            <p> Priority : <span class="priority_text">Medium</span></p>
+          </div>
+
+          <div class="checklist">
+            <p>Checklist:</p>
+            <div class="checklist-list">
+              <!-- <p class="checklist-list-count">1.</p> -->
+              <P class="checklist_text">we have removed 2 results from this page.</P>
+            </div>
+            <!-- <div class="checklist-list">
+              <p class="checklist-list-count">2.</p>
+              <P>
+                ultiple complaints that US Digital Millennium Copyright Act
+                ultiple complaints that we received under the US Digital Millennium Copyright Act,
+                we have removed 2 results from this page.
+                If you wish, you may read the DMCA complaints that caused the removals at LumenDataba
+              </P>
+            </div> -->
+          </div>
+
+        </div>
+
+        <div class="task-modal-main-sidebar">
+
+          <div class="task-modal-company-logo-div">
+            <a href="#" class="company-anchor">
+              <img src="person-2.jpg" alt="" class="company_logo" />
+              <p class="company-name">Weave Communications</p>
+            </a>
+          </div>
+
+          <div class="task-modal-task-stats-div">
+            <p class="task-stats-div-title">Status :</p>
+            <p class="task-stats-div-info status-text">Unassigned</p>
+
+            <p class="task-stats-div-title">Finishing Expected :</p>
+            <p class="task-stats-div-info finishing-expected">10/31/23 5:34PM</p>
+
+            <p class="task-stats-div-title">Date Created :</p>
+            <p class="task-stats-div-info date-created">10/31/23 5:34PM</p>
+            <p class="task-stats-div-title">Finishing Date :</p>
+            <p class="task-stats-div-info finishing-date">Unfinished</p>
+          </div>
+
+          <div class="task-modal-task-assignee-div">
+            <p class="assignee-div-title">Assignee :</p>
+            <a href="#">
+              <img src="person-3.jpg" alt="" class="company_logo" />
+              <p>Gabriel Gunderson</p>
+            </a>
+            <a href="#">
+              <img src="person-4.jpg" alt="" class="company_logo" />
+              <p>Stephanie Zollowkowsky</p>
+            </a>
+            <a href="#">
+              <img src="person-5.jpg" alt="" class="company_logo" />
+              <p>Ichabod Chrane</p>
+            </a>
+            <a href="#">
+              <img src="person-16.jpg" alt="" class="company_logo" />
+              <p>Weave Communications</p>
+            </a>
+          </div>
+
+          <div class="task-modal-button-div">
+            <button type="button" class="task-modal-button"><a href="" class="task-edit-button">Edit Task</a></button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+
+  </main>
+{% endblock content %}

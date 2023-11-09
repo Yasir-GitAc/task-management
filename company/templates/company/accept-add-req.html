@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+  <title>Accept Add Request|Trello Task Management</title>
+{% endblock title %}
+
+
+{% block content %}
+  <main>
+      <div class="companay-table-container">
+
+        <p class="delete_page_header_text">Do you want to accept add request of {{company.name}}.
+          <a href="{% url 'company:confirm-add-request-accept' company_id=company.id user_id=user_id %}">Yes, Accept It</a>
+        </p>
+
+        <div class="tWrap">
+          <div class="tWrap__head">
+            <table>
+              <thead>
+                <tr>
+                  <th>Company Name</th>
+                  <th>Date Created</th>
+                  <th>Creator</th>
+                  <th>members</th>
+                </tr>
+              </thead>
+            </table>
+          </div> <!--/.tWrap__head-->
+          <div class="tWrap__body">
+            <table>
+              <tbody>
+
+                <tr>
+                  <td><a href="{% url 'company:company-profile' pk=company.id %}" class="table-name">{{company.name}}</a></td>
+                  <td>{{company.created}}</td>
+                  <td>{{company.creator}}</td>
+                  <td>{{company.members.all.count}}</td>
+                </tr>
+
+
+              </tbody>
+            </table>
+          </div> <!--/.tWrap__body-->
+        </div> <!-- /.tWrap -->
+
+      </div>
+
+  </main>
+{% endblock content %}

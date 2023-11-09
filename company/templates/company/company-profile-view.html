@@ -1,0 +1,157 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+  <title>{{company.name}} Profile |Trello</title>
+{% endblock title %}
+
+{% block statics %}
+  <link rel="stylesheet" href="{% static 'css/profile-view.css' %}"/>
+{% endblock statics %}
+
+{% block content %}
+  <main>
+    <div class="profile-information-container">
+
+      <div class="profile-container">
+        <div class="profile-container-img-div">
+          <img src="{{ company.company_logo.url }}" alt="User's Profile Picture">
+        </div>
+        <div class="profile-container-information-div">
+          <div class="profile-info-div-para-container">
+            <p class="profile-info-div-title">Company Name : </p>
+            <p class="profile-info-div-info">{{company.name}}</p>
+          </div>
+          <div class="profile-info-div-para-container">
+            <P class="profile-info-div-title">Company Email : </P>
+            <p class="profile-info-div-info">{{company.company_email}}</p>
+          </div>
+          <div class="profile-info-div-para-container">
+            <P class="profile-info-div-title">Company Address : </P>
+            <p class="profile-info-div-info">{{company.address}}</p>
+          </div>
+          <div class="profile-info-div-para-container">
+            <P class="profile-info-div-title">Company Created : </P>
+            <p class="profile-info-div-info">{{company.created|timesince}}</p>
+          </div>
+          <div class="profile-info-div-para-container">
+            <P class="profile-info-div-title bio-align-top">About Company:</P>
+            <p class="profile-info-div-info">
+              {{company.company_bio}}
+            </p>
+          </div>
+          {% if request.user == company.creator %}
+            <div class="profile-info-div-para-container">
+              <a href="{% url 'company:update-company' pk=company.id %}">
+                <p class="profile-info-div-info">Update Company Information</p>
+              </a>
+            </div>
+          {% elif request.user not in company.members.all %}
+            <div class="profile-info-div-para-container">
+              <a href="#">
+                <p class="profile-info-div-info">Send Add Request To This Company</p>
+              </a>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="companay-table-container">
+        <p class="company-table-container-title">{{company.name}} Members</p>
+        <div class="tWrap">
+          <div class="tWrap__head">
+            <table>
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Join Date</th>
+                  <th>Total Finished Task</th>
+                </tr>
+              </thead>
+            </table>
+          </div> <!--/.tWrap__head-->
+          <div class="tWrap__body">
+            <table>
+              <tbody>
+                {% for member in member_list%}
+                  <tr>
+                    <td><a href="{% url 'account:user-profile' pk=member.member_id %}" class="table-name">{{member.member_name}}</a></td>
+                    <td>{{member.member_joined_date}}</td>
+                    <td>{{member.member_total_finished_task}}</td>
+                  </tr>
+                {% endfor %}
+                <tr>
+                  <td><a href="#" class="table-name"></a></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div> <!--/.tWrap__body-->
+        </div> <!-- /.tWrap -->
+
+      </div>
+
+      <div class="companay-table-container">
+        <p class="company-table-container-title">All Tasks</p>
+        <div class="tWrap">
+          <div class="tWrap__head">
+            <table>
+              <thead>
+                <tr>
+                  <th>Task Title</th>
+                  <th>Date Created</th>
+                  <th>Status</th>
+                  <th>Priority</th>
+                  <th>Assignee</th>
+                </tr>
+              </thead>
+            </table>
+          </div> <!--/.tWrap__head-->
+          <div class="tWrap__body">
+            <table>
+              <tbody>
+                {% for task in task_list %}
+                  <tr>
+                    <td><a href="#" class="table-name">{{task.title}}</a></td>
+                    <td>{{task.date_created}}</td>
+                    <td>{{task.status}}</td>
+                    <td>{{task.priority}}</td>
+                    <td>
+                      <div class="company-members company-members-in-table" title="company members">
+                        {% for assignee in task.assignees %}
+                          <a href="{% url 'account:user-profile' pk=assignee.id %}">
+                            <img src="{{assignee.profile_picture.url}}" alt="company member" class="company_logo"/>
+                          </a>
+                        {% endfor %}
+                      </div>
+                    </td>
+                  </tr>
+                {% endfor %}
+                <tr>
+                  <td><a href="#" class="table-name"></a></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td>
+                    <div class="company-members company-members-in-table" title="company members">
+                      <a href="#">
+                      </a>
+                      <a href="#">
+                      </a>
+                    </div>
+                  </td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div> <!--/.tWrap__body-->
+        </div> <!-- /.tWrap -->
+
+      </div>
+
+    </div>
+  </main>
+
+{% endblock content %}
