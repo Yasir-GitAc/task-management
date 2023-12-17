@@ -8,6 +8,24 @@ from .forms import custom_user_creation_form
 
 # Create your views here.
 
+def take_a_tour(request):
+  if request.method == 'POST':
+    email = request.POST['email']
+    password = request.POST['password']
+
+    user = authenticate(request, email=email, password=password)
+    if user is not None:
+      login(request, user)
+      messages.success(request, 'LogIn Successful'+ ' ' + user.username)
+      # return redirect('account:index')
+      return redirect('task:user-workspace')
+    else:
+      print('Credentials is not matching, please try again.')
+      messages.error(request, 'Credentials do not match, please try again.')
+      return redirect('account:login')
+
+  return render(request, 'account/take_a_tour.html')
+
 
 def login_user(request):
   if request.user.is_authenticated:

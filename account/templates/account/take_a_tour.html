@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kenia&family=Mukta:wght@300;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/form.css' %}">
+  <link rel="stylesheet" href="{% static 'css/modal.css' %}">
+  <script src="{% static 'js/modal.js' %}" defer></script>
+  <title>Take A Tour Of Trello Task Manager</title>
+</head>
+<body>
+  <!-- Messages start -->
+  {% if messages %}
+    {% for message in messages %}
+      <div class="message-modal modal-{{message.tags}}">
+        <div class="message-modal-content">
+          <div class="message-modal-message-text">
+            <P>
+              {{message}}
+            </P>
+          </div>
+          <div class="message-modal-close-btn">
+            <i class="fa-solid fa-xmark"></i>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  {% endif %}
+  <!-- Messages end -->
+
+
+  <div class="page-container">
+    <div class="form-content form-content-for-login-form">
+
+      <div class="form-container" style="border-radius: 1rem;">
+        <p>Login Form</p>
+        <small style="font-size: 0.5em;">
+          Login in as a pre-arranged user for tour.</br>
+          james@example.com ____ abcd#1234
+        </small>
+        <form class="form" method="POST">
+          {% csrf_token %}
+          <input type="text" name="email" class="form-input" placeholder="Email" required>
+          <input type="password" name="password" class="form-input" placeholder="Password">
+
+          <button type="submit" class="form-submit-btn" value="Submit" >Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
